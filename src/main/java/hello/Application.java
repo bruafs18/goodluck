@@ -44,7 +44,7 @@ public class Application {
 	
 			stmt = conn.createStatement();
 	
-			String sql = "SELECT * FROM Partner ";
+			String sql = "SELECT * FROM partner ";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				int num= rs.getInt("id");
