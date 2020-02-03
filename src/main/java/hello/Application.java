@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Application {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://172.17.0.2:3306/MyParkDB";
+	static final String DB_URL = "jdbc:mysql://192.168.0.2:3306/MyParkDB";
 
 	static final String USER = "root";
 	static final String PASS = "AllGroup15";
@@ -32,10 +32,10 @@ public class Application {
 	}
 	
 	@RequestMapping("/partners")
-	public static ArrayList<Pair<Integer,String>> GetPartners() {
+	public static ArrayList<PartnerModel> GetPartners() {
 		Connection conn = null;
 		Statement stmt = null;
-		ArrayList<Pair<Integer,String>> arr = new  ArrayList<Pair<Integer,String>>();
+		ArrayList<PartnerModel> arr = new  ArrayList<PartnerModel>();
 		try {
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -49,7 +49,7 @@ public class Application {
 			while (rs.next()) {
 				int num= rs.getInt("id");
 				String abc= rs.getString("name");
-				arr.add(new Pair<Integer,String>(num,abc));
+				arr.add(new PartnerModel(num,abc));
 			}
 			rs.close();
 		} catch (SQLException se) {
