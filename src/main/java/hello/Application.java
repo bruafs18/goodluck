@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Application {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://0.0.0.0:3306/MyParkDB";
+	static final String DB_URL = "jdbc:mysql://192.168.0.2:3306/MyParkDB";
 
 	static final String USER = "root";
 	static final String PASS = "AllGroup15";
