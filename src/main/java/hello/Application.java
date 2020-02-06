@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,14 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Application {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://192.168.0.2:3306/MyParkDB";
-
-	static final String USER = "root";
-	static final String PASS = "AllGroup15";
+	
 	
 	@RequestMapping("/")
 	public String home() {
-		return "Hello Docker World";
+		return "Welcome to our webservice";
 	}
 
 	public static void main(String[] args) {
@@ -33,47 +31,17 @@ public class Application {
 	
 	@RequestMapping("/partners")
 	public static ArrayList<PartnerModel> GetPartners() {
-		Connection conn = null;
-		Statement stmt = null;
-		ArrayList<PartnerModel> arr = new  ArrayList<PartnerModel>();
-		try {
-			
-			Class.forName("com.mysql.cj.jdbc.Driver");
+		return new GetPartners().RunQuery();
+	}
 	
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-	
-			stmt = conn.createStatement();
-	
-			String sql = "SELECT * FROM partner ";
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				int num= rs.getInt("id");
-				String abc= rs.getString("name");
-				arr.add(new PartnerModel(num,abc));
-			}
-			rs.close();
-		} catch (SQLException se) {
-			// Handle errors for JDBC
-			se.printStackTrace();
-		} catch (Exception e) {
-			// Handle errors for Class.forName
-			e.printStackTrace();
-		} finally {
-			// finally block used to close resources
-			try {
-				if (stmt != null)
-					conn.close();
-			} catch (SQLException se) {
-			} // do nothing
-			try {
-				if (conn != null)
-					conn.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-		} 
-		}
-		
-		return arr;
+	@RequestMapping("/divisions/{id}")
+	public static ArrayList<DivisionModel> GetDivisionsByPartnerID(@PathVariable("id") int id) {
+		return new GetDivisionsByPartnerID(id).RunQuery();
 	}
 
+	@RequestMapping("/slot/{id}")
+	public static ArrayList<SlotsModel> GetSlotByDivisionID(@PathVariable("id") int id) {
+		return new GetSlotByDivisionID(id).RunQuery();
+	}
+	
 }
