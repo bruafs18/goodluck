@@ -10,15 +10,15 @@ import java.util.ArrayList;
 public abstract class DBGetTemplate<T> {
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	/*
+	
 	static final String DB_URL = "jdbc:mysql://192.168.0.2:3306/MyParkDB";
 	static final String USER = "root";
 	static final String PASS = "AllGroup15";
-	*/
+	/*
 	static final String DB_URL = "jdbc:mysql://den1.mysql1.gear.host:3306/abcabc12345";
 	static final String USER = "abcabc12345";
 	static final String PASS = "AllGroup15.";
-	
+	*/
 	protected String Query;
 	
     public final ArrayList<T> RunQuery() {
