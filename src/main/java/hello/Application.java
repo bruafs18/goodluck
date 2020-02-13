@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class Application {
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	
 	
 	@RequestMapping("/")
@@ -42,6 +41,11 @@ public class Application {
 	@RequestMapping("/slot/{id}")
 	public static ArrayList<SlotsModel> GetSlotByDivisionID(@PathVariable("id") int id) {
 		return new GetSlotByDivisionID(id).RunQuery();
+	}
+	
+	@RequestMapping("/slot/partnerid/{id}")
+	public static ArrayList<SlotModelForDivision> GetSlotByPartnerID(@PathVariable("id") int id) {
+		return new GetSlotByPartnerID(id).RunQuery();
 	}
 	
 }

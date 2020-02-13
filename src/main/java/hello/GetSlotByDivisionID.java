@@ -21,5 +21,4 @@ public class GetSlotByDivisionID extends DBGetTemplate<SlotsModel> {
 		int divisionid = rs.getInt("DivisionID");
 		return new  SlotsModel(id,pixelx,pixely,avail,uTime.toString(),divisionid);
 	}
-
 }
