@@ -8,7 +8,7 @@ public class GetSlotByPartnerID extends DBGetTemplate<SlotModelForDivision> {
 
 	public GetSlotByPartnerID(int id)
 	{
-		super.Query="SELECT availability,uTime,DivisionID FROM slot inner join division on slot.DivisionID=Division.ID where PartnerID="+id;
+		super.Query="SELECT Availability,uTime,DivisionID FROM slot inner join division on slot.DivisionID=division.ID where PartnerID="+id;
 	}
 	
 	@Override
