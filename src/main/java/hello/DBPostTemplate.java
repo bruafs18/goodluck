@@ -2,31 +2,25 @@ package hello;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
-public abstract class DBGetTemplate<T> extends DBSettings {
-	
-	
+public abstract class DBPostTemplate extends DBSettings {
 	
 	protected String Query;
 	
-    public final ArrayList<T> RunQuery() {
+    public final int RunQuery() {
+    	int num =0;
     	Connection conn = null;
-		Statement stmt = null;
-		ArrayList<T> arr = new  ArrayList<T>();
+		PreparedStatement prepStmt = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			stmt = conn.createStatement();
-			String sql = Query;
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				arr.add(TakeCareOfTheRecord(rs));
-			}
-			rs.close();
+			prepStmt = conn.prepareStatement(Query);
+			prepStmt = TakeCareOfParams(prepStmt);
+			num = prepStmt.executeUpdate();
+			prepStmt.close();
 		} catch (SQLException se) {
 			// Handle errors for JDBC
 			System.out.println("jdbc");
@@ -38,7 +32,7 @@ public abstract class DBGetTemplate<T> extends DBSettings {
 		} finally {
 			// finally block used to close resources
 			try {
-				if (stmt != null)
+				if (prepStmt != null)
 					conn.close();
 			} catch (SQLException se) {
 			} // do nothing
@@ -50,9 +44,8 @@ public abstract class DBGetTemplate<T> extends DBSettings {
 		} 
 		}
 		
-		return arr;
+		return num;
     }
     
-    public abstract T TakeCareOfTheRecord(ResultSet rs) throws SQLException;
-     
+    public abstract PreparedStatement TakeCareOfParams(PreparedStatement pst) throws SQLException;
 }

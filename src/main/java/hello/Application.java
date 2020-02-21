@@ -1,16 +1,12 @@
 package hello;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -46,6 +42,15 @@ public class Application {
 	@RequestMapping("/slot/partnerid/{id}")
 	public static ArrayList<SlotModelForDivision> GetSlotByPartnerID(@PathVariable("id") int id) {
 		return new GetSlotByPartnerID(id).RunQuery();
+	}
+	
+	@RequestMapping("/rpi/slot")
+	public int someMethod(@RequestParam("ID") String ID,@RequestParam("Av") String AV) {
+		boolean Availability=false;
+		if(AV.equals("true"))
+			Availability=true;
+		
+		return new PostUpdateSlotByID(ID,Availability).RunQuery();
 	}
 	
 }
