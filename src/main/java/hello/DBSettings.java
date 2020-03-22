@@ -4,6 +4,7 @@ public abstract class DBSettings {
 	protected static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	
 	protected static final String DB_URL = "jdbc:mysql://192.168.0.2:3306/MyParkDB";
+	//protected static final String DB_URL = "jdbc:mysql://172.31.82.105:3306/MyParkDB";
 	protected static final String USER = "root";
 	protected static final String PASS = "AllGroup15";
 	/*

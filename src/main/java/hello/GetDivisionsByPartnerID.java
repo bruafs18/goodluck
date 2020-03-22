@@ -15,8 +15,10 @@ public class GetDivisionsByPartnerID extends DBGetTemplate<DivisionModel> {
 		int id = rs.getInt("ID");
 		String name = rs.getString("Name");
 		String sImage = rs.getString("sImage");
+		Double longi = rs.getDouble("longitude");
+		Double lati = rs.getDouble("latitude");
 		int partnerid = rs.getInt("PartnerID");
-		return new DivisionModel(id,name,partnerid,sImage);
+		return new DivisionModel(id,name,partnerid,longi,lati,sImage);
 	}
 
 }
